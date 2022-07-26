@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_Proyecto" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d5c3aaf-647f-400d-a93a-9fb779794bfb">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="NUEVA" uuid="90486229-36b8-40fc-9770-41e763f54652">
+		<queryString language="SQL">
+			<![CDATA[select
+cl.NOMBRE_CLUB as Club,
+count(clma.ID_CLUB) as Alumnos
+from CLUB cl
+inner Join CLUB_MATRICULA clma on cl.ID_CLUB=clma.ID_CLUB
+group by cl.NOMBRE_CLUB,clma.ID_CLUB]]>
+		</queryString>
+		<field name="Club" class="java.lang.String"/>
+		<field name="Alumnos" class="java.lang.Integer"/>
+		<group name="Club">
+			<groupExpression><![CDATA[$F{Club}]]></groupExpression>
+		</group>
+		<group name="Alumnos">
+			<groupExpression><![CDATA[$F{Alumnos}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString>
+		<![CDATA[select
+cl.NOMBRE_CLUB as Club,
+count(clma.ID_CLUB) as Alumnos
+from CLUB cl
+inner Join CLUB_MATRICULA clma on cl.ID_CLUB=clma.ID_CLUB
+group by cl.NOMBRE_CLUB,clma.ID_CLUB]]>
+	</queryString>
+	<field name="Club" class="java.lang.String"/>
+	<field name="Alumnos" class="java.lang.Integer"/>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="97" y="26" width="379" height="20" uuid="da72ae4b-5ffa-4dbd-a328-0759f6e228b5"/>
+				<textElement>
+					<font size="15" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ESTUDIANTES MATRICULADOS EN LOS CLUBES]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="35" y="0" width="147" height="20" uuid="1054359b-282a-4014-85b9-7586ef4dd18c"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[Nombre: Xavier Avilés]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="338" y="0" width="126" height="20" uuid="97760c03-2ee6-4f07-85d7-063e2fc01223"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[Curso: Quinto "B"]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="137" y="20" width="100" height="20" forecolor="#FF0000" uuid="a3eeef3b-0863-4c47-bddd-944e622799b2"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
+				<text><![CDATA[CLUB]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="20" width="100" height="20" forecolor="#FF0000" uuid="6e0808b9-3b75-4cc6-98c5-7eaa4876f8ea"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
+				<text><![CDATA[ALUMNOS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="51" splitType="Stretch">
+			<rectangle>
+				<reportElement x="288" y="0" width="50" height="20" uuid="5af6d20c-5c5d-4749-9bf0-0ea4b02fd739"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="117" y="0" width="114" height="20" uuid="9a35036a-ab92-4e3f-8ff0-9682d0b18283"/>
+			</rectangle>
+			<textField>
+				<reportElement x="131" y="0" width="100" height="20" uuid="1063e28b-fdfa-4372-9326-4242181c7f42"/>
+				<textFieldExpression><![CDATA[$F{Club}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="0" width="100" height="20" uuid="ad38cde6-4433-436a-9b59-698ac2eb9d61"/>
+				<textFieldExpression><![CDATA[$F{Alumnos}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="15" splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="201" splitType="Stretch">
+			<pieChart>
+				<chart>
+					<reportElement x="88" y="21" width="352" height="163" uuid="d9f577ae-3d91-4fd1-a572-b9216981316f"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{Club}]]></keyExpression>
+					<valueExpression><![CDATA[$F{Alumnos}]]></valueExpression>
+					<labelExpression><![CDATA[$F{Club}]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>
